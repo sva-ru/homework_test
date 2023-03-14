@@ -38,7 +38,7 @@ class Student:
     def __str__(self):
         txt = f'Имя: {self.name} \nФамилия: {self.surname}\nСредняя оценка за домашние задания: {self.avg_grade()}\n'
         txt += f'Курсы в процессе изучения: {", ".join(self.grades.keys())}\n'
-        txt += f'Завершенные курсы:'
+        txt += f'Завершенные курсы: {", ".join(self.finished_courses)}'
         return txt
 
     def add_courses(self, course_name):
