@@ -117,7 +117,7 @@ coll_reviewer2.courses_attached += ['Java']
 # Создаем два объекта из класса Lecturer, заполяем их атрибуты
 cool_lecturer = Lecturer('Vova','Ivanov')
 cool_lecturer.courses_attached += ['Python']
-cool_lecturer2 = Lecturer('Bill','Billy')
+cool_lecturer2 = Lecturer('Bill', 'Billy')
 cool_lecturer2.courses_attached += ['Python']
 # метод выставления оценок лекторам у класса Student
 best_student.rate_lecturer(cool_lecturer, 'Python', [1,2,4,5])
