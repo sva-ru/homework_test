@@ -33,7 +33,7 @@ class Student:
         avg_list = []
         for i in self.grades.values():
             avg_list += i
-        return sum(avg_list) / len(avg_list)
+        return round(sum(avg_list) / len(avg_list),2)
 
     def __str__(self):
         txt = f'Имя: {self.name} \nФамилия: {self.surname}\nСредняя оценка за домашние задания: {self.avg_grade()}\n'
@@ -78,7 +78,7 @@ class Lecturer(Mentor):
         avg_list = []
         for i in self.grades.values():
             avg_list += i
-        return sum(avg_list) / len(avg_list)
+        return round(sum(avg_list) / len(avg_list), 2)
 
 class Reviewer (Mentor):
     def __init__(self, name, surname):
@@ -94,44 +94,49 @@ class Reviewer (Mentor):
     def  __str__(self):
         return (f'Имя: {self.name} \nФамилия: {self.surname}')
 
+def comparison(lecturer, student):
+    if student.avg_grade() > lecturer.avg_grade():
+        return f'У студента {student.name} оценки получше будут!'
+    elif student.avg_grade() == lecturer.avg_grade():
+        return 'Победила дружба!'
+    else:
+        return f'У лектора {lecturer.name} оценки получше будут!'
 
+# Создаем два объекта из класса Student, заполяем их атрибуты
 best_student = Student('Ruoy', 'Eman', 'man')
 best_student2 = Student('Pac', 'Man', 'man')
 best_student.courses_in_progress += ['Python']
 best_student.courses_in_progress += ['Sql']
 best_student.add_courses('Java')
-
-coll_reviewer = Reviewer('Vasya','Sokolov')
+# Создаем два объекта из класса Reviewer, заполяем их атрибуты
+coll_reviewer = Reviewer('Vasya', 'Sokolov')
 coll_reviewer.courses_attached += ['Python']
 coll_reviewer.courses_attached += ['Sql']
-#
+coll_reviewer2 = Reviewer('Vlad', 'Vladovich')
+coll_reviewer2.courses_attached += ['Java']
+# Создаем два объекта из класса Lecturer, заполяем их атрибуты
 cool_lecturer = Lecturer('Vova','Ivanov')
 cool_lecturer.courses_attached += ['Python']
-cool_lecturer2 = Lecturer('Bill','Gets')
+cool_lecturer2 = Lecturer('Bill','Billy')
 cool_lecturer2.courses_attached += ['Python']
-
+# метод выставления оценок лекторам у класса Student
 best_student.rate_lecturer(cool_lecturer, 'Python', [1,2,4,5])
 best_student.rate_lecturer(cool_lecturer2, 'Python', [3,2,4,10])
+# метод выставления оценок студентам у класса Reviewer
 coll_reviewer.rate_hw(best_student, 'Python', 5)
-# coll_reviewer.rate_hw(best_student, 'Python', 10)
+coll_reviewer.rate_hw(best_student, 'Python', 10)
 coll_reviewer.rate_hw(best_student, 'Sql', 8)
-
-
-print(best_student.grades)
-# print(cool_lecturer.grades)
-# coll_reviewer.__str__()
-# cool_lecturer.__str__()
-
-# print(Student.list_all_student)
-# print(Lecturer.list_all_lecturer)
-
-
-
-
-# print(Lecturer.avg_grade(Lecturer.list_all_lecturer, 'Python'))
+# функция для подсчета средней оценки за лекции всех лекторов в рамках курса
+print(Lecturer.avg_grade_course(Lecturer.list_all_lecturer, 'Python'))
+# функция для подсчета средней оценки за домашние задания по всем студентам в рамках конкретного курса
 print(Student.avg_grade_course(Student.list_all_student, 'Sql'))
+# функция для подсчета средней оценки за домашние задания у класса Student
 print(best_student.avg_grade())
+# функция для подсчета средней оценки за лекции у класса Lecturer
 print(cool_lecturer.avg_grade())
+# Перезагрузка магического метода __str__ у всех классов
 print(coll_reviewer)
 print(cool_lecturer)
 print(best_student)
+# сравнение между собой лекторов по средней оценке за лекции и студентов по средней оценке за домашние задания
+print(comparison(cool_lecturer, best_student))
