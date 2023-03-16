@@ -1,5 +1,6 @@
 class Student:
     list_all_student = []
+    # avg_gr = 0.0
     def __init__(self, name, surname, gender):
         self.name = name
         self.surname = surname
@@ -44,6 +45,17 @@ class Student:
     def add_courses(self, course_name):
         self.finished_courses.append(course_name)
 
+    def __lt__(self, lecturer):
+        avg_gr_st = self.avg_grade()
+        avg_gr_lec = lecturer.avg_grade()
+        return avg_gr_st < avg_gr_lec
+
+    def __gt__(self, lecturer):
+        avg_gr_st = self.avg_grade()
+        avg_gr_lec = lecturer.avg_grade()
+        return avg_gr_st > avg_gr_lec
+
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -53,6 +65,7 @@ class Mentor:
 
 class Lecturer(Mentor):
     list_all_lecturer = []
+    # avg_gr = 0.0
     def __init__(self, name, surname):
         super().__init__(name, surname)
         self.grades = {}
@@ -80,6 +93,17 @@ class Lecturer(Mentor):
             avg_list += i
         return round(sum(avg_list) / len(avg_list), 2)
 
+    def __lt__(self, student):
+        avg_gr_lec = self.avg_grade()
+        avg_gr_st = student.avg_grade()
+        return avg_gr_st < avg_gr_lec
+
+    def __gt__(self, student):
+        avg_gr_lec = self.avg_grade()
+        avg_gr_st = student.avg_grade()
+        return avg_gr_st > avg_gr_lec
+
+
 class Reviewer (Mentor):
     def __init__(self, name, surname):
         super().__init__(name, surname)
@@ -94,13 +118,6 @@ class Reviewer (Mentor):
     def  __str__(self):
         return (f'Имя: {self.name} \nФамилия: {self.surname}')
 
-def comparison(lecturer, student):
-    if student.avg_grade() > lecturer.avg_grade():
-        return f'У студента {student.name} оценки получше будут!'
-    elif student.avg_grade() == lecturer.avg_grade():
-        return 'Победила дружба!'
-    else:
-        return f'У лектора {lecturer.name} оценки получше будут!'
 
 # Создаем два объекта из класса Student, заполяем их атрибуты
 best_student = Student('Ruoy', 'Eman', 'man')
@@ -131,12 +148,13 @@ print(Lecturer.avg_grade_course(Lecturer.list_all_lecturer, 'Python'))
 # функция для подсчета средней оценки за домашние задания по всем студентам в рамках конкретного курса
 print(Student.avg_grade_course(Student.list_all_student, 'Sql'))
 # функция для подсчета средней оценки за домашние задания у класса Student
-print(best_student.avg_grade())
+avg_gr = best_student.avg_grade()
 # функция для подсчета средней оценки за лекции у класса Lecturer
-print(cool_lecturer.avg_grade())
+avg_gr = cool_lecturer.avg_grade()
 # Перезагрузка магического метода __str__ у всех классов
 print(coll_reviewer)
 print(cool_lecturer)
 print(best_student)
 # сравнение между собой лекторов по средней оценке за лекции и студентов по средней оценке за домашние задания
-print(comparison(cool_lecturer, best_student))
+print(cool_lecturer < best_student)
+print(cool_lecturer > best_student)
