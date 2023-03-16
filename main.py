@@ -148,9 +148,9 @@ print(Lecturer.avg_grade_course(Lecturer.list_all_lecturer, 'Python'))
 # функция для подсчета средней оценки за домашние задания по всем студентам в рамках конкретного курса
 print(Student.avg_grade_course(Student.list_all_student, 'Sql'))
 # функция для подсчета средней оценки за домашние задания у класса Student
-avg_gr = best_student.avg_grade()
+print(best_student.avg_grade())
 # функция для подсчета средней оценки за лекции у класса Lecturer
-avg_gr = cool_lecturer.avg_grade()
+print(cool_lecturer.avg_grade())
 # Перезагрузка магического метода __str__ у всех классов
 print(coll_reviewer)
 print(cool_lecturer)
